@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>yummyfood!</title>
+    <link rel="stylesheet" href="./nav-bar.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="profile-container" onclick="toggleAccountPopout()">
+        <div class="profile-icon">
+          <img
+            src="../asset/—Pngtree—account icon  line style_3776725.png"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="yummy">
+        <img src="../asset/yummy.png" alt="yummy logo" />
+      </div>
+
+      <button class="hamburger" onclick="toggleSidebar()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="70"
+          height="50"
+          viewBox="0 0 50 70"
+          style="fill: #ffffff"
+        >
+          <path
+            d="M 5 8 A 2.0002 2.0002 0 1 0 5 12 L 45 12 A 2.0002 2.0002 0 1 0 45 8 L 5 8 z M 5 23 A 2.0002 2.0002 0 1 0 5 27 L 45 27 A 2.0002 2.0002 0 1 0 45 23 L 5 23 z M 5 38 A 2.0002 2.0002 0 1 0 5 42 L 45 42 A 2.0002 2.0002 0 1 0 45 38 L 5 38 z"
+          />
+        </svg>
+      </button>
+
+      <div class="sidebar" id="sidebar">
+        <a href="#">Aktivitas</a>
+        <a href="#">Search</a>
+        <a href="#">Promo</a>
+        <a href="keranjang.html">Keranjang</a>
+        <a href="#">Chat</a>
+        <a href="#">Bantuan</a>
+      </div>
+
+      <div class="overlay" id="overlay" onclick="closeAllPopouts()"></div>
+    </div>
+
+    <div id="search-popout" class="search-popout hidden">
+      <input
+        type="text"
+        placeholder="Cari makanan?"
+        style="text-align: center"
+      />
+      <button onclick="cari()">Cari</button>
+    </div>
+
+    <div class="account-popout" id="accountPopout">
+      <div class="posisi">
+        <div class="account-header">
+          <div class="pp">
+            <img
+              src="../asset/—Pngtree—account icon  line style_3776725.png"
+              alt="avatar"
+            />
+          </div>
+          <p><strong>Nama Akun</strong></p>
+          <p>email@example.com</p>
+          <p>+62 812-3456-7890</p>
+        </div>
+        <div class="account-links">
+          <a href="#">Aktivitas</a>
+          <a href="#">Promo</a>
+          <a href="#">Keranjang</a>
+          <a href="#">Chat</a>
+          <a href="#">Bantuan</a>
+          <a href="#" onclick="confirmLogout()">Keluar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="logoutModal">
+      <div class="modal-content">
+        <p>Yakin ingin logout?</p>
+        <button onclick="logout()">Ya</button>
+        <button onclick="closeModal()">Batal</button>
+      </div>
+    </div>
+
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        sidebar.classList.toggle("open");
+        overlay.classList.toggle("show");
+      }
+
+      function toggleAccountPopout() {
+        const accountPopout = document.getElementById("accountPopout");
+        const overlay = document.getElementById("overlay");
+        const isOpen = accountPopout.classList.contains("open");
+
+        if (isOpen) {
+          accountPopout.classList.remove("open");
+          overlay.classList.remove("show");
+        } else {
+          accountPopout.classList.add("open");
+          overlay.classList.add("show");
+        }
+      }
+
+      function closeAllPopouts() {
+        document.getElementById("sidebar").classList.remove("open");
+        document.getElementById("accountPopout").classList.remove("open");
+        document.getElementById("overlay").classList.remove("show");
+        document.getElementById("logoutModal").style.display = "none";
+      }
+
+      function cari() {
+        const keyword = document.querySelector("#search-popout input").value;
+        alert("Mencari: " + keyword);
+      }
+
+      function confirmLogout() {
+        document.getElementById("logoutModal").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("logoutModal").style.display = "none";
+      }
+
+      function logout() {
+        window.location.href = "Halaman0Login.html";
+      }
+    </script>
+  </body>
+</html>
