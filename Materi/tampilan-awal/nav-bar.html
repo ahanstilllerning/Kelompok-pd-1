@@ -96,7 +96,8 @@
         overlay.classList.toggle("show");
       }
 
-      function toggleAccountPopout() {
+      function toggleAccountPopout(event) {
+        event.stopPropagation();
         const accountPopout = document.getElementById("accountPopout");
         const overlay = document.getElementById("overlay");
         const isOpen = accountPopout.classList.contains("open");
@@ -110,9 +111,25 @@
         }
       }
 
+      function toggleSearchPopout(event) {
+        event.stopPropagation();
+        const popout = document.getElementById("search-popout");
+        const overlay = document.getElementById("overlay");
+        const isHidden = popout.classList.contains("hidden");
+
+        if (isHidden) {
+          popout.classList.remove("hidden");
+          overlay.classList.add("show");
+        } else {
+          popout.classList.add("hidden");
+          overlay.classList.remove("show");
+        }
+      }
+
       function closeAllPopouts() {
         document.getElementById("sidebar").classList.remove("open");
         document.getElementById("accountPopout").classList.remove("open");
+        document.getElementById("search-popout").classList.add("hidden");
         document.getElementById("overlay").classList.remove("show");
         document.getElementById("logoutModal").style.display = "none";
       }
@@ -133,6 +150,24 @@
       function logout() {
         window.location.href = "Halaman0Login.html";
       }
+      let currentSlide = 0;
+
+      function changeSlide(direction) {
+        const slides = document.querySelectorAll(".slide");
+        slides[currentSlide].style.display = "none"; // Hide current slide
+        currentSlide += direction;
+
+        if (currentSlide < 0) {
+          currentSlide = slides.length - 1; // Loop to last slide
+        } else if (currentSlide >= slides.length) {
+          currentSlide = 0; // Loop back to first slide
+        }
+
+        slides[currentSlide].style.display = "block"; // Show new slide
+      }
+
+      // Initialize the first slide
+      document.querySelectorAll(".slide")[currentSlide].style.display = "block";
     </script>
   </body>
 </html>
