@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  <link rel="stylesheet" href="login-css.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="h1">Login</h1>
+    <form action="masuk.html" method="POST">
+      <div class="form-group">
+        <p>Username</p>
+        <input type="text" name="username" required>
+      </div>
+
+      <div class="form-group">
+        <p>Password</p>
+        <div class="password-wrapper">
+          <input type="password" id="password" name="password" required>
+          <button type="button" id="togglePassword">
+            <img id="icon" src="hide.png" alt="Toggle Password">
+          </button>
+        </div>
+      </div>
+
+    <a href="NAVBAR-AFTER.html" class="border">Masuk</a>
+    </form>
+
+    <div class="container-1">
+      <nav>
+        <a href="sign-up.html" class="box-a">Buat Akun</a>
+      </nav>
+      <p>OR</p>
+      <a href="login_google.html" class="box-b">Akun Google</a>
+    </div>
+  </div>
+    <img src="makanan.png" class="background-image">
+ 
+
+  <script>
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('togglePassword');
+    const icon = document.getElementById('icon');
+
+    togglePassword.addEventListener('click', function () {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.src = 'view.png';
+      } else {
+        passwordInput.type = 'password';
+        icon.src = 'hide.png';
+      }
+    });
+  </script>
+</body>
+</html>
