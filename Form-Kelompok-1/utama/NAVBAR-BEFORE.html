@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>yummyfood!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .header {
+      background-color: #001F54;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .hamburger {
+      font-size: 30px;
+      cursor: pointer;
+      padding: 15px;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1001;
+      background: none;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      right: -250px; /* mulai dari kanan */
+      background-color: #fff;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+      overflow-x: hidden;
+      transition: right 0.3s ease;
+      z-index: 1000;
+      padding-top: 60px;
+    }
+
+    .sidebar a {
+      padding: 15px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #333;
+      display: block;
+    }
+
+    .sidebar a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .overlay {
+      position: fixed;
+      display: none;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+
+    .sidebar.open {
+      right: 0;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+  .yummy {
+  position: absolute;
+  margin-top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  }
+
+  .yummy img {
+  height: 150px;
+  width: auto;
+  }
+
+
+
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="Halaman0Login.html"><div class="profile-icon"><img src="—Pngtree—account icon  line style_3776725.png" alt=""></div></a>
+    <div class="yummy">
+      <img src="yummy.png" alt="yummy logo">
+    </div>
+    <button class="hamburger" onclick="toggleSidebar()"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="40" viewBox="0 0 50 70"
+        style="fill:#FFFFFF;">
+        <path d="M 5 8 A 2.0002 2.0002 0 1 0 5 12 L 45 12 A 2.0002 2.0002 0 1 0 45 8 L 5 8 z M 5 23 A 2.0002 2.0002 0 1 0 5 27 L 45 27 A 2.0002 2.0002 0 1 0 45 23 L 5 23 z M 5 38 A 2.0002 2.0002 0 1 0 5 42 L 45 42 A 2.0002 2.0002 0 1 0 45 38 L 5 38 z"></path>
+        </svg></button>
+    <div class="sidebar" id="sidebar">
+      <a href="#">Home</a>
+      <a href="#">Search</a>
+      <a href="#">Restaurants</a>
+      <a href="Halaman0Login.html">New Profile</a>
+    </div>
+    
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+    
+  </div>
+  <script>
+    function toggleMenu() {
+        var menu = document.getElementById("menu");
+        var hamburger = document.querySelector(".hamburger");
+        menu.classList.toggle("active");
+        hamburger.classList.toggle("rotate");
+    }
+    function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+  }
+</script>
+</body>
+</html>

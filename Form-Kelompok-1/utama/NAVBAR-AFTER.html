@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>yummyfood!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .header {
+      background-color: #001F54;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+    }
+
+    .img-1  {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .img-2  {
+      width: 30px;
+      height: 30px;
+      margin-left:1rem ;
+    }
+
+    .hamburger {
+      font-size: 30px;
+      margin-top: 1rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      right: -250px;
+      background-color: #fff;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+      overflow-x: hidden;
+      transition: right 0.3s ease;
+      z-index: 1000;
+      padding-top: 60px;
+    }
+
+    .sidebar a {
+      padding: 15px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #333;
+      display: block;
+    }
+
+    .sidebar a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .overlay {
+      position: fixed;
+      display: none;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+
+    .sidebar.open {
+      right: 0;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    .search-popout {
+      position: fixed;
+      top: 14%;
+      left: 40%;
+      right: 40%;
+      width: 250px;
+      height: 40px;
+      background-color: white;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      padding: 10px;
+      border-radius: 10px;
+      z-index: 1100;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    .search-popout input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .search-popout button {
+      padding: 8px;
+      background-color: #001F54;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .yummy {
+      position: absolute;
+      margin-top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .yummy img {
+      height: 150px;
+      width: auto;
+    }
+
+    .profile-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-button {
+      cursor: pointer;
+      color: white;
+    }
+
+    @media (max-width: 500px) {
+      .profile-container img {
+        width: 50px !important;
+        height: 50px !important;
+      }
+    }
+
+    .account-popout {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 50%;
+      height: 100%;
+      background: #fff;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+      z-index: 1002;
+      transition: left 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .account-popout.open {
+      display: block;
+      left: 0;
+    }
+
+    .posisi {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .account-header {
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+
+    .account-header p {
+      margin: 5px;
+    }
+
+    .account-links {
+      width: 100%;
+    }
+
+    .account-links a {
+      display: block;
+      padding: 10px 20px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .account-links a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+      z-index: 1003;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .modal-content button {
+      margin: 10px;
+      padding: 8px 15px;
+    }
+
+    .pp img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .box-food{
+      width: 100%;
+      height: 400px;
+      padding-top: 5rem;
+      position: relative;
+    }
+    .slider {
+      position: relative;
+      width: 700px;
+      height: 250px;
+      margin: 0 auto 1rem;
+      overflow: visible;
+    }
+
+    .slide-main {
+      width: 400px;
+      height: 250px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 6px 20px rgba(0,31,84,0.3);
+      display: block;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+      
+      /* Animasi fade */
+      opacity: 1;
+      transition: opacity 0.8s ease-in-out;
+    }
+    .slide-main.fade-out {
+      opacity: 0;
+    }
+    .slide-main.fade-in {
+      opacity: 1;
+    }
+
+    /* Preview kecil di kiri dan kanan */
+    .slide-preview {
+      width: 160px;
+      height: 100px;
+      border-radius: 12px;
+      object-fit: cover;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.3;
+      filter: brightness(0.8);
+      transition: opacity 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,31,84,0.2);
+    }
+
+    .slide-preview:hover {
+      opacity: 0.6;
+    }
+
+    .slide-preview.left {
+      left: 0;
+    }
+    .slide-preview.right {
+      right: 0;
+    }
+
+    /* Tombol panah */
+    .slider button.prev,
+    .slider button.next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,31,84,0.7);
+      border: none;
+      color: white;
+      font-size: 28px;
+      padding: 8px 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      z-index: 20;
+    }
+    .slider button.prev:hover,
+    .slider button.next:hover {
+      background: #001f54;
+    }
+    .slider button.prev {
+      left: -50px;
+    }
+    .slider button.next {
+      right: -50px;
+    }
+        /* Container besar slider */
+        .slider-box {
+      position:fixed;
+      left: 50%;
+      transform: translate(-50%);
+      width: 90vw;
+      background-color: #e9ecef;
+      border-radius: 20px;
+      padding: 20px 3.5rem; /* space untuk tombol kiri dan kanan */
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin: 2rem auto;
+      overflow: hidden;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .article {
+  width: 300px;
+  background-color: #003580;
+  padding: 15px;
+  text-align: center;
+  position: absolute; /* ganti absolute jadi relative atau dihapus */
+  top: 45%;
+  left: 40%;
+  transform: translate(-40%, -45%);
+  transform: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 11px; /* jarak antar elemen */
+}
+
+.image-container {
+  width: 100%;
+  height: 200px;
+  border-radius: 12px; /* biar kotak agak membulat */
+  overflow: hidden;
+  border: none; /* atau sesuai selera */
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+    .figcaption {
+      margin-top: 15px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    section.account {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 8px;
+      font-size: 14px;
+      color: #ffffff;
+    }
+
+    .account-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #444;
+      margin-right: 6px;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    footer .star {
+      color: gold;
+      margin-right: 4px;
+    }
+
+    /* Tombol kiri dan kanan */
+    .btn-prev,
+    .btn-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #001F54;
+      border: none;
+      color: white;
+      font-size: 18px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s;
+      z-index: 20;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-prev:hover,
+    .btn-next:hover {
+      background-color: #003580;
+    }
+
+    .btn-prev {
+      left: 10px;
+    }
+
+    .btn-next {
+      right: 10px;
+    }
+
+    /* Animasi slide lama ke kiri */
+    .animate-old {
+      animation: slideLeftFade 0.9s forwards;
+    }
+    /*  mgautr fade dari tengah ke kiri */
+    @keyframes slideLeftFade {
+      0% {
+        left: 50%;
+        opacity: 1;
+        filter: blur(0);
+        transform: translate(-50%, -50%);
+      }
+      100% {
+        left: 10%;
+        opacity: 0;
+        filter: blur(4px);
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    /* Animasi slide baru dari kanan ke tengah */
+    .animate-new {
+      animation: slideRightIn 0.9s forwards;
+    }
+    /* ngatur slide yang mau masuk*/
+    @keyframes slideRightIn {
+      0% {
+        left: 90%;
+        opacity: 0.3;
+        filter: blur(4px);
+        transform: translate(-50%, -50%);
+      }
+      100% {
+        left: 50%;
+        opacity: 1;
+        filter: blur(0);
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 100px) {
+      .slider-box {
+        max-width: 90vw;
+        height: auto;
+        padding: 20px 2rem;
+      }
+      .article {
+        position: absolute; /* ganti absolute jadi relative atau dihapus */
+        top: 50%;
+        left: 40%;
+        transform: translate(-50%, -40%);
+        transform: none;
+      }
+      .image-container {
+        width: 150px;
+        height: 150px;
+        border-width: 4px;
+      }
+      .figcaption {
+        font-size: 18px;
+      }
+      .footer {
+        font-size: 14px;
+      }
+      .btn-prev,
+      .btn-next {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+        top: auto;
+        bottom: 15px;
+        transform: none;
+      }
+      .btn-prev {
+        left: 20%;
+        bottom: 10px;
+      }
+      .btn-next {
+        right: 20%;
+        bottom: 10px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="profile-container">
+      <div class="profile-icon" onclick="toggleAccountPopout(event)">
+        <img class="img-1" src="/Form-Kelompok-1/img/—Pngtree—account icon  line style_3776725.png" alt="" width="50px" height="50px">
+      </div>
+      <div class="search-button" onclick="toggleSearchPopout(event)"><img class="img-2" src="/Form-Kelompok-1/img/icons8-search-49.png" alt=""></div>
+    </div>
+
+    <div class="yummy">
+      <img src="/Form-Kelompok-1/img/yummy.png" alt="yummy logo">
+    </div>
+
+    <button class="hamburger" onclick="toggleSidebar()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="70" height="50" viewBox="0 0 50 70" style="fill:#FFFFFF;">
+        <path d="M 5 8 A 2.0002 2.0002 0 1 0 5 12 L 45 12 A 2.0002 2.0002 0 1 0 45 8 L 5 8 z M 5 23 A 2.0002 2.0002 0 1 0 5 27 L 45 27 A 2.0002 2.0002 0 1 0 45 23 L 5 23 z M 5 38 A 2.0002 2.0002 0 1 0 5 42 L 45 42 A 2.0002 2.0002 0 1 0 45 38 L 5 38 z"/>
+      </svg>
+    </button>
+
+    <div class="sidebar" id="sidebar">
+      <a href="#">Aktivitas</a>
+      <a href="#">Search</a>
+      <a href="#">Promo</a>
+      <a href="keranjang.html">Keranjang</a>
+      <a href="#">Chat</a>
+      <a href="#">Bantuan</a>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeAllPopouts()"></div>
+  </div>
+
+  <section class="slider-box">
+
+    <figure class="article" id="old-food-card" style="display: none;">
+      <div class="image-container">
+        <img src="" alt="Food Image" id="old-slider-image" />
+      </div>
+      <figcaption class="figcaption" id="old-slider-caption"></figcaption>
+      <section class="account" id="old-account"></section>
+      <footer class="footer" id="old-footer"></footer>
+    </figure>
+
+    <figure class="article" id="new-food-card">
+      <div class="image-container">
+        <img src="" alt="Food Image" id="new-slider-image" />
+      </div>
+      <figcaption class="figcaption" id="new-slider-caption"></figcaption>
+      <section class="account" id="new-account"></section>
+      <footer class="footer" id="new-footer"></footer>
+    </figure>
+
+    <button class="btn-prev" onclick="prevSlide()" aria-label="Previous Slide">⟵</button>
+    <button class="btn-next" onclick="nextSlide()" aria-label="Next Slide">⟶</button>
+
+  </section>
+
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+
+  function toggleSidebar() {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+  }
+
+  function closeAllPopouts() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+    closeSearchPopout();
+    closeAccountPopout();
+  }
+
+  // Search popout
+  function toggleSearchPopout(event) {
+    event.stopPropagation();
+    const existing = document.querySelector('.search-popout');
+    if (existing) {
+      closeSearchPopout();
+    } else {
+      openSearchPopout();
+    }
+  }
+  function openSearchPopout() {
+    const popout = document.createElement('div');
+    popout.classList.add('search-popout');
+    popout.innerHTML = `
+      <input type="text" placeholder="Search..." />
+      <button>Go</button>
+    `;
+    document.body.appendChild(popout);
+    overlay.classList.add('show');
+    popout.addEventListener('click', e => e.stopPropagation());
+    popout.querySelector('button').addEventListener('click', () => alert('Searching...'));
+  }
+  function closeSearchPopout() {
+    const popout = document.querySelector('.search-popout');
+    if (popout) {
+      popout.remove();
+    }
+    overlay.classList.remove('show');
+  }
+
+  // Account popout
+  const accountPopout = document.createElement('div');
+  accountPopout.classList.add('account-popout');
+  accountPopout.innerHTML = `
+    <div class="posisi">
+      <div class="account-header">
+        <p>Welcome back, User</p>
+        <div class="pp"><img src="/Form-Kelompok-1/img/—Pngtree—account icon  line style_3776725.png" alt="Profile Picture"/></div>
+      </div>
+      <div class="account-links">
+        <a href="#">My Account</a>
+        <a href="#">Order History</a>
+        <a href="#">Wishlist</a>
+        <a href="#">Logout</a>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(accountPopout);
+
+  function toggleAccountPopout(event) {
+    event.stopPropagation();
+    if (accountPopout.classList.contains('open')) {
+      closeAccountPopout();
+    } else {
+      openAccountPopout();
+    }
+  }
+  function openAccountPopout() {
+    accountPopout.classList.add('open');
+    overlay.classList.add('show');
+  }
+  function closeAccountPopout() {
+    accountPopout.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+
+  const slides = [
+      {
+        src: "/Form-Kelompok-1/img/Resep Sosis Bakar oleh Dada.jpg",
+        caption: "Sosis Bakar",
+        creator: "Dada",
+        rating: "4.8",
+      },
+      {
+        src: "/Form-Kelompok-1/img/Kumpulan Gambar Bakso PNG Transparan High Quality.jpg",
+        caption: "Bakso Lezat",
+        creator: "Rudi",
+        rating: "4.9",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+        caption: "Burger Mantap",
+        creator: "Chef Mike",
+        rating: "5.0",
+      },
+    ];
+
+    let current = 0;
+
+    function updateSlide(oldIndex, newIndex) {
+      const oldCard = document.getElementById("old-food-card");
+      const newCard = document.getElementById("new-food-card");
+
+      if (oldIndex !== null) {
+        // Update old slide content
+        document.getElementById("old-slider-image").src = slides[oldIndex].src;
+        document.getElementById("old-slider-caption").textContent = slides[oldIndex].caption;
+        document.getElementById("old-account").innerHTML = `<img class="account-icon" src="/Form-Kelompok-1/img/—Pngtree—account icon  line style_3776725.png" alt="Profile Picture"> oleh ${slides[oldIndex].creator}`;
+        document.getElementById("old-footer").innerHTML = `<span class="star">⭐</span> ${slides[oldIndex].rating} / 5`;
+
+        // Update new slide content
+        document.getElementById("new-slider-image").src = slides[newIndex].src;
+        document.getElementById("new-slider-caption").textContent = slides[newIndex].caption;
+       document.getElementById("new-footer").innerHTML = `<span class="star">⭐</span> ${slides[newIndex].rating} / 5`;
+
+        oldCard.style.display = "block";
+        newCard.style.display = "block";
+
+        // Reset animation classes
+        oldCard.classList.remove("animate-old");
+        newCard.classList.remove("animate-new");
+
+        // Trigger reflow to restart animation
+        void oldCard.offsetWidth;
+
+        oldCard.classList.add("animate-old");
+        newCard.classList.add("animate-new");
+
+        // Hide old card after animation completes
+        setTimeout(() => {
+          oldCard.style.display = "none";
+        }, 900);
+      } else {
+        // Initial load without animation
+        oldCard.style.display = "none";
+        newCard.style.left = "46%";
+        newCard.style.opacity = "1";
+        newCard.style.filter = "blur(0)";
+        newCard.style.transform = "translate(-50%, -50%)";
+
+        document.getElementById("new-slider-image").src = slides[newIndex].src;
+        document.getElementById("new-slider-caption").textContent = slides[newIndex].caption;
+        document.getElementById("new-account").innerHTML = `<img class="account-icon" src="/Form-Kelompok-1/img/—Pngtree—account icon  line style_3776725.png" alt="Profile Picture" /> oleh ${slides[newIndex].creator}`;
+        document.getElementById("new-footer").innerHTML = `<span class="star">⭐</span> ${slides[newIndex].rating} / 5`;
+      }
+    }
+
+    function nextSlide() {
+      const oldIndex = current;
+      current = (current + 1) % slides.length;
+      updateSlide(oldIndex, current);
+    }
+
+    function prevSlide() {
+      const oldIndex = current;
+      current = (current - 1 + slides.length) % slides.length;
+      updateSlide(oldIndex, current);
+    }
+
+    // Auto slide every 4 seconds
+    setInterval(() => {
+      nextSlide();
+    }, 4000);
+
+    // Load first slide
+    updateSlide(null, current);
+</script>
+</body>
+</html>
