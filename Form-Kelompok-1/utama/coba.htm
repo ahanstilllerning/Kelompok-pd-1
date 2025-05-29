@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Filter Menu</title>
+  <style>
+
+    .body-1 {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 20px auto;
+    }
+
+    .filter-buttons button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background-color: #eee;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .filter-buttons button.active {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .box {
+      background-color: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 10px;
+      transition: 0.3s;
+    }
+
+    .box img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+
+    .posisi-teks {
+      padding-left: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .posisi-teks h1 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .posisi-teks p {
+      margin-bottom: 0.2rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .container-20 {
+        justify-items: center;
+      }
+
+      .box {
+        max-width: 380px;
+        width: 100%;
+      }
+
+      .box img {
+        width: 90px;
+        height: 90px;
+      }
+
+      .posisi-teks h1 {
+        font-size: 0.95rem;
+      }
+
+      .posisi-teks p {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="body-1">
+  <div class="filter-buttons">
+    <button class="active" onclick="filterMenu('makanan')">Makanan</button>
+    <button onclick="filterMenu('minuman')">Minuman</button>
+  </div>
+
+  <section class="container">
+    <!-- Makanan -->
+    <div class="box makanan">
+      <img src="/Form-Kelompok-1/img/Resep Sosis Bakar oleh Dada.jpg" alt="Sosis Bakar">
+      <div class="posisi-teks">
+        <h1>Sosis Bakar Cihuyy</h1>
+        <p>Warung Pak Indra</p>
+        <p>⭐⭐⭐⭐</p>
+      </div>
+    </div>
+    <div class="box makanan">
+      <img src="/Form-Kelompok-1/img/kue-2jeti.jpeg" alt="Nasi Goreng">
+      <div class="posisi-teks">
+        <h1>Bolu 2 jeti</h1>
+        <p>ahan resto</p>
+        <p>⭐⭐⭐⭐⭐</p>
+    </div>
+    </div>
+    <div class="box makanan">
+        <img src="/Form-Kelompok-1/img/rendang.jpeg" alt="rendang">
+        <div class="posisi-teks">
+          <h1>Rendang bikbuk</h1>
+          <p>warung pa somat</p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+    </div>
+    <div class="box makanan">
+        <img src="/Form-Kelompok-1/img/kue-irebg.jpeg" alt="kue">
+        <div class="posisi-teks">
+          <h1>Kue Ireng</h1>
+          <p>hana food</p>
+          <p>⭐⭐⭐⭐</p>
+        </div>
+    </div>
+    <div class="box makanan">
+        <img src="/Form-Kelompok-1/img/pizza.jpeg" alt="rendang">
+        <div class="posisi-teks">
+          <h1>Pizza</h1>
+          <p>Pizza Hut</p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+    </div>
+    <div class="box makanan">
+        <img src="/Form-Kelompok-1/img/pangsit-jebew.jpeg" alt="rendang">
+        <div class="posisi-teks">
+          <h1>Pangsit Jebew</h1>
+          <p>teh aca resto</p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+    </div>
+    <div class="box makanan">
+        <img src="/Form-Kelompok-1/img/pancake.jpeg" alt="rendang">
+        <div class="posisi-teks">
+          <h1>Pancake</h1>
+          <p>risti product</p>
+          <p>⭐⭐⭐⭐</p>
+        </div>
+    </div>
+    <div class="box makanan">
+        <img src="/Form-Kelompok-1/img/nasi-ayaam-teriyaki.jpeg" alt="rendang">
+        <div class="posisi-teks">
+          <h1>Nasi Ayam</h1>
+          <p>dra rest</p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+    </div>
+    <div class="box makanan">
+        <img src="/Form-Kelompok-1/img/Kumpulan Gambar Bakso PNG Transparan High Quality.jpg" alt="rendang">
+        <div class="posisi-teks">
+          <h1>Baso titi</h1>
+          <p>teh titi</p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+    </div>
+    <div class="box makanan">
+        <img src="/Form-Kelompok-1/img/dimsum-lada.jpeg" alt="rendang">
+        <div class="posisi-teks">
+          <h1>Dimsum Jebew</h1>
+          <p>teteh yasmin</p>
+          <p>⭐⭐⭐⭐</p>
+        </div>
+    </div>
+    <div class="box makanan">
+        <img src="/Form-Kelompok-1/img/Pisang coklat lumer.jpg" alt="rendang">
+        <div class="posisi-teks">
+          <h1>Piscok</h1>
+          <p>warung mang aan</p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+    </div>
+    <div class="box makanan">
+        <img src="/Form-Kelompok-1/img/WhatsApp Image 2025-05-29 at 20.18.37 (2).jpeg" alt="rendang">
+        <div class="posisi-teks">
+          <h1>Telor mata sapi</h1>
+          <p>dra resto</p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+    </div>
+
+
+
+    <!-- Minuman -->
+    <div class="box minuman" style="display: none;">
+      <img src="/Form-Kelompok-1/img/Es-Boba-Seger.jpeg" alt="Es Teh Manis">
+      <div class="posisi-teks">
+        <h1>Es Bobas Juara</h1>
+        <p>Kedai Segar</p>
+        <p>⭐⭐⭐</p>
+      </div>
+    </div>
+    <div class="box minuman" style="display: none;">
+      <img src="/Form-Kelompok-1/img/es-coklat-seger.jpeg" alt="Jus Alpukat">
+      <div class="posisi-teks">
+        <h1>Es coklat</h1>
+        <p>Juice Bar</p>
+        <p>⭐⭐⭐⭐</p>
+      </div>
+    </div>
+    <div class="box minuman" style="display: none;">
+        <img src="/Form-Kelompok-1/img/es-koi-panas.jpeg" alt="Es Teh Manis">
+        <div class="posisi-teks">
+          <h1>Es Kopi Panas</h1>
+          <p>Kedai Segar</p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+      </div>
+      <div class="box minuman" style="display: none;">
+        <img src="/Form-Kelompok-1/img/es-lemon.jpeg" alt="Jus Alpukat">
+        <div class="posisi-teks">
+          <h1>Lemon Tea</h1>
+          <p>Juice Bar</p>
+          <p>⭐⭐⭐⭐</p>
+        </div>
+      </div>
+      <div class="box minuman" style="display: none;">
+        <img src="/Form-Kelompok-1/img/es-teh-leci.jpeg" alt="Es Teh Manis">
+        <div class="posisi-teks">
+          <h1>Es Teh Leci</h1>
+          <p>Kedai Segar</p>
+          <p>⭐⭐⭐</p>
+        </div>
+      </div>
+      <div class="box minuman" style="display: none;">
+        <img src="/Form-Kelompok-1/img/high-angle-tasty-caipirinha-with-strawberries.jpg" alt="Jus Alpukat">
+        <div class="posisi-teks">
+          <h1>caipirinha</h1>
+          <p>Juice Bar</p>
+          <p>⭐⭐⭐⭐</p>
+        </div>
+      </div>
+      <div class="box minuman" style="display: none;">
+        <img src="/Form-Kelompok-1/img/iced-coffee.jpg" alt="Es Teh Manis">
+        <div class="posisi-teks">
+          <h1>Es Kopi</h1>
+          <p>Kedai Segar</p>
+          <p>⭐⭐⭐</p>
+        </div>
+      </div>
+      <div class="box minuman" style="display: none;">
+        <img src="/Form-Kelompok-1/img/vertical-view-delicious-fresh-juices-fruits-wooden-tray-brown-background.jpg" alt="Jus Alpukat">
+        <div class="posisi-teks">
+          <h1>Jus</h1>
+          <p>Juice Bar</p>
+          <p>⭐⭐⭐⭐</p>
+        </div>
+      </div>
+      <div class="box minuman" style="display: none;">
+        <img src="/Form-Kelompok-1/img/vertical-view-delicious-fresh-juices-fruits-wooden-tray-brown-background.jpg" alt="Es Teh Manis">
+        <div class="posisi-teks">
+          <h1>Es Jeruk</h1>
+          <p>Kedai Segar</p>
+          <p>⭐⭐⭐</p>
+        </div>
+      </div>
+      <div class="box minuman" style="display: none;">
+        <img src="/Form-Kelompok-1/img/young-woman-tolerating-heat-wave-with-cool-drink.jpg" alt="Jus Alpukat">
+        <div class="posisi-teks">
+          <h1>soda gembira</h1>
+          <p>Juice Bar</p>
+          <p>⭐⭐⭐⭐</p>
+        </div>
+      </div>
+      <div class="box minuman" style="display: none;">
+        <img src="/Form-Kelompok-1/img/close-up-foods-cocktails-tall-glass (1).jpg" alt="rendang">
+        <div class="posisi-teks">
+          <h1>Jeruk Es</h1>
+          <p>teteh yasmin</p>
+          <p>⭐⭐⭐⭐</p>
+        </div>
+    </div>
+    <div class="box minuman" style="display: none;">
+        <img src="/Form-Kelompok-1/img/strawberry-milk-shake-table.jpg" alt="rendang">
+        <div class="posisi-teks">
+          <h1>strawberry milk shake</h1>
+          <p>warung mang aan</p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+    </div>
+  </section>
+</div>
+  <script>
+    function filterMenu(kategori) {
+      const allBoxes = document.querySelectorAll('.box');
+      const buttons = document.querySelectorAll('.filter-buttons button');
+
+      // Update button state
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.filter-buttons button[onclick*="${kategori}"]`).classList.add('active');
+
+      // Show/hide boxes
+      allBoxes.forEach(box => {
+        if (box.classList.contains(kategori)) {
+          box.style.display = "flex";
+        } else {
+          box.style.display = "none";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
